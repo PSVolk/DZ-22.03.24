@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест</title>
+    <script>
+            var questions = [
+            {
+                question: "1) How many letters are there in the word Hello?",
+                answers: ["5", "2"],
+                correctAnswer: 0
+            },
+            {
+                question: "2) How many letters are there in the word World?",
+                answers: ["4",  "5"],
+                correctAnswer: 1
+            },
+            
+        ];
+
+            function displayQuestions() {
+            var container = document.getElementById("container");
+            container.innerHTML = "";
+            
+                for (var i = 0; i < questions.length; i++) {
+                var questionElement = document.createElement("div");
+                var questionText = document.createElement("p");
+                questionText.innerHTML = questions[i].question;
+                questionElement.appendChild(questionText);
+
+              
+                var answerElement = document.createElement("div");
+                var answers = questions[i].answers;
+
+              
+                for (var j = 0; j < answers.length; j++) {
+              
+                    var radio = document.createElement("input");
+                    radio.setAttribute("type", "radio");
+                    radio.setAttribute("name", "question" + i);
+                    radio.setAttribute("value", j);
+
+      
+                    var answerText = document.createElement("span");
+                    answerText.innerHTML = answers[j];
+
+                  
+                    answerElement.appendChild(radio);
+                    answerElement.appendChild(answerText);
+                }
+
+           
+                container.appendChild(questionElement);
+                container.appendChild(answerElement);
+            }
+
+ 
+            var submitButton = document.createElement("button");
+            submitButton.innerHTML = "Проверить";
+            submitButton.onclick = checkAnswers;
+            container.appendChild(submitButton);
+        }
+
+        
+        function checkAnswers() {
+            var container = document.getElementById("container");
+            var correctAnswers = 0;
+
+        
+            for (var i = 0; i < questions.length; i++) {
+             
+                var radios = document.getElementsByName("question" + i);
+                var selectedAnswer = -1;
+
+           
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].checked) {
+                        selectedAnswer = j;
+                        break;
+                    }
+                }
+                
+               
+                if (selectedAnswer === questions[i].correctAnswer) {
+                    correctAnswers++;
+                }
+            }
+
+      
+            container.innerHTML = "";
+
+     
+            var result = document.createElement("p");
+            result.innerHTML = "Result: " + correctAnswers + "correct answers to 2 qustions.";
+            container.appendChild(result);
+        }
+    </script>
+</head>
+<body onload="displayQuestions()">
+    <div id="container"></div>
+</body>
+</html>
